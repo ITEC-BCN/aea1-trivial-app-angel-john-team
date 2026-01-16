@@ -23,23 +23,11 @@ class MainActivity : ComponentActivity() {
             TrivialAPP_BaseTheme {
                 // Controlador de navegación
                 val navigationController = rememberNavController()
-                NavHost(
-                    navController = navigationController,
-                    startDestination = Routes.MenuScreen.route
-                ) {
-                    composable(Routes.MenuScreen.route) { Screen1(navigationController) }
-                    composable(Routes.GameScreen.route) { Screen2(navigationController) }
-                    composable(Routes.ResultScreen.route) { Screen3(navigationController) }
-                }
-            }
-
 
                 // Instanciamos el ViewModel una vez
 
 
-
                 // Definición de rutas y navegación
-
 
 
             }
