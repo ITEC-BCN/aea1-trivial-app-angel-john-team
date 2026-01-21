@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation(libs.core.splashscreen)
