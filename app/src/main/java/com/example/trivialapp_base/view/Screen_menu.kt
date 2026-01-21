@@ -34,7 +34,7 @@ import com.example.trivialapp_base.viewmodel.GameViewModel
 
 @Composable
 fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
-    var selectedDifficulty: String by remember {mutableStateOf("")}
+    var selectedDifficulty: String by remember {mutableStateOf("Select difficulty")}
     var expanded: Boolean by remember { mutableStateOf(false) }
     val difficulties = listOf("Easy", "Medium", "Hard")
 
@@ -54,6 +54,13 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 text = "Awesome App",
                 fontSize = 32.sp
             )
+            Button(
+                onClick = {expanded = true},
+                modifier = Modifier
+                    .width(200.dp)
+            ) {
+                Text(text = selectedDifficulty)
+            }
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = {expanded = false},
