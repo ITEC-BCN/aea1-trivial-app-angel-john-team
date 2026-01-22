@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +24,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
+    Box() {
+         CircularProgressIndicator()
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -60,5 +64,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 }
             }
         }
+    }
+    Box() {
+
     }
 }

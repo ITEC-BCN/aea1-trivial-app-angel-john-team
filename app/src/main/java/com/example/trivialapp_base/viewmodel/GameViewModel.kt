@@ -63,4 +63,9 @@ class GameViewModel : ViewModel() {
 
     override fun onCleared() {
     }
+    public fun CircularProgressIndicator(
+        progress: () -> Float,
+    ) {
+
+    }
 }
