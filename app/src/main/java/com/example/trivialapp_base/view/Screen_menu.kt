@@ -82,7 +82,8 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 onClick = {
                     viewModel.setDificultad(selectedDifficulty)
                     navController.navigate("GameScreen")
-                    viewModel.iniciarJuego()},
+                    //viewModel.iniciarJuego()
+                          },
                 modifier = Modifier
                     .width(200.dp)
             ) {
