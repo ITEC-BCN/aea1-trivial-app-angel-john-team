@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
+import androidx.navigation.R
 import com.example.trivialapp_base.ui.theme.TrivialAPP_BaseTheme
 import com.example.trivialapp_base.viewmodel.GameViewModel
 
@@ -81,9 +82,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
             Button(
                 onClick = {
                     viewModel.setDificultad(selectedDifficulty)
-                    navController.navigate("GameScreen")
-                    //viewModel.iniciarJuego()
-                          },
+                    navController.navigate("GameScreen") },
                 modifier = Modifier
                     .width(200.dp)
             ) {
