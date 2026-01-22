@@ -32,6 +32,10 @@ class GameViewModel : ViewModel() {
     var dificultadSeleccionada by mutableStateOf("Facil")
         private set
 
+    public fun getDificultad(): String {
+        return dificultadSeleccionada
+    }
+
     private var timer: CountDownTimer? = null
     private val TIEMPO_POR_PREGUNTA = 10000L // 10 segons
 

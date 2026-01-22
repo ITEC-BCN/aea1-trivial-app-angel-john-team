@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.R
+import com.example.trivialapp_base.ui.theme.TrivialAPP_BaseTheme
 import com.example.trivialapp_base.viewmodel.GameViewModel
 
 
@@ -46,7 +47,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
         Column(
         ) {
             Image(
-                painter = painterResource(id = com.example.trivialapp_base.R.drawable.logotrivial),
+                painter = painterResource(id = com.example.trivialapp_base.R.drawable.hola),
                 contentDescription = "Logo trivial",
                 alpha = 1f
             )
@@ -73,12 +74,15 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                         onClick = {
                             expanded = false
                             selectedDifficulty = difficulties
+
                         }
                     )
                 }
             }
             Button(
-                onClick = { navController.navigate("GameScreen") },
+                onClick = {
+                    viewModel.setDificultad(selectedDifficulty)
+                    navController.navigate("GameScreen") },
                 modifier = Modifier
                     .width(200.dp)
             ) {
