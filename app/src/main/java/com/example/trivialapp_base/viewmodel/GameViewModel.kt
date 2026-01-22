@@ -1,5 +1,6 @@
 package com.example.trivialapp_base.viewmodel
 
+import android.R
 import android.os.CountDownTimer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -11,6 +12,19 @@ import com.example.trivialapp_base.model.Pregunta
 
 class GameViewModel : ViewModel() {
     private var preguntasPartida: List<Pregunta> = emptyList()
+    
+    public fun setPreguntas(listaPreguntas: MutableList<Pregunta>){
+        return listaPreguntas.shuffle()
+    }
+    
+    public fun filtrarPreguntas(listaPerFiltrar: List<Pregunta>): List<Pregunta> {
+        val listaFiltrada = emptyList<Pregunta>()
+        listaPerFiltrar.forEach() {  }
+
+
+        return listaFiltrada
+    }
+    
     var indicePreguntaActual by mutableIntStateOf(0)
         private set
 

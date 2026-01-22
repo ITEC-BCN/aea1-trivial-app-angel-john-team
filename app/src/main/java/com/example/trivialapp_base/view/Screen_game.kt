@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.text.Layout
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
