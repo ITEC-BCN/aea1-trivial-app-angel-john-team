@@ -43,6 +43,7 @@ class GameViewModel : ViewModel() {
         dificultadSeleccionada = dificultad // Sense .value!
     }
     fun iniciarJuego() {
+        iniciarTimer()
     }
 
     private fun cargarSiguientePregunta() {
@@ -55,6 +56,9 @@ class GameViewModel : ViewModel() {
     }
 
     private fun iniciarTimer() {
+        //facil 10s
+        //medio 8s
+        //dificil 6s
     }
 
     override fun onCleared() {
