@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.trivialapp_base.model.Pregunta
+import com.example.trivialapp_base.model.ProveedorPreguntas
 
 class GameViewModel : ViewModel() {
     private var preguntasPartida: List<Pregunta> = emptyList()
@@ -17,11 +18,14 @@ class GameViewModel : ViewModel() {
         return listaPreguntas.shuffle()
     }
     
-    public fun filtrarPreguntas(listaPerFiltrar: List<Pregunta>): List<Pregunta> {
-        val listaFiltrada = emptyList<Pregunta>()
-        listaPerFiltrar.forEach() {  }
-
-
+    public fun filtrarPreguntas(): MutableList<Pregunta> {
+        val listaFiltrada = mutableListOf<Pregunta>()
+        val listaPerFiltrar = ProveedorPreguntas.obtenerPreguntas()
+        listaPerFiltrar.forEach() { preguntaFiltrar ->
+            if (dificultadSeleccionada == preguntaFiltrar.dificultad){
+                listaFiltrada.add(preguntaFiltrar)
+            }
+        }
         return listaFiltrada
     }
     
@@ -58,6 +62,7 @@ class GameViewModel : ViewModel() {
     }
     fun iniciarJuego() {
         iniciarTimer()
+
     }
 
     private fun cargarSiguientePregunta() {
