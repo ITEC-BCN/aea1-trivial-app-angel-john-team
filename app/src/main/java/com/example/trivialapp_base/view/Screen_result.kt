@@ -1,7 +1,10 @@
 package com.example.trivialapp_base.view
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,8 +23,23 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Text(
-            fontSize = 100.sp,
-            text = "Puntuació: " + score)
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                fontSize = 45.sp,
+                text = "Puntuació: " + score + "/100")
+            Button(
+                onClick = {navController.navigate("MenuScreen")
+                viewModel.resetAll()}
+            ) {
+                Text(
+                    text = "Return to menu"
+                )
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.trivialapp_base.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -28,7 +29,6 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
-import androidx.navigation.R
 import com.example.trivialapp_base.ui.theme.TrivialAPP_BaseTheme
 import com.example.trivialapp_base.viewmodel.GameViewModel
 
@@ -74,7 +74,6 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                         onClick = {
                             expanded = false
                             selectedDifficulty = difficulties
-
                         }
                     )
                 }
@@ -82,13 +81,14 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
             Button(
                 onClick = {
                     viewModel.setDificultad(selectedDifficulty)
-                    navController.navigate("GameScreen") },
+                    navController.navigate("GameScreen")
+
+                    },
                 modifier = Modifier
                     .width(200.dp)
             ) {
                 Text(text = "Nuevo juego")
             }
         }
-
     }
 }

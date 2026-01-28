@@ -8,16 +8,57 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.model.Pregunta
 import com.example.trivialapp_base.model.ProveedorPreguntas
 
 class GameViewModel : ViewModel() {
-    private var preguntasPartida: List<Pregunta> = emptyList()
-    
-    public fun setPreguntas(listaPreguntas: MutableList<Pregunta>){
-        return listaPreguntas.shuffle()
+    var puntuacion by mutableIntStateOf(0)
+        private set
+
+    var juegoTerminado by mutableStateOf(false)
+        //private set
+
+//    public fun getJuegoTerminado(): Boolean{
+//        return juegoTerminado
+//    }
+    private var timer: CountDownTimer? = null
+    var tiempoRestante by mutableFloatStateOf(100f)
+        private set
+    private val TIEMPO_POR_PREGUNTA = 10000L // 10 segons
+    var dificultadSeleccionada by mutableStateOf("Facil")
+        private set
+
+    private var preguntasPartida: List<Pregunta> = filtrarPreguntas()
+
+    var preguntaActual by mutableStateOf<Pregunta?>(null)
+        private set
+
+    var indicePreguntaActual by mutableIntStateOf(0)
+        private set
+
+    fun iniciarJuego() {
+        iniciarTimer()
     }
-    
+
+    public fun iniciarTimer() {
+        timer?.cancel()
+        timer = object : CountDownTimer(TIEMPO_POR_PREGUNTA, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+                // Actualitzem l'estat directament
+                tiempoRestante = millisUntilFinished.toFloat() / TIEMPO_POR_PREGUNTA
+            }
+
+            override fun onFinish() {
+                tiempoRestante = 0f
+
+            }
+        }.start()
+    }
+
+
     public fun filtrarPreguntas(): MutableList<Pregunta> {
         val listaFiltrada = mutableListOf<Pregunta>()
         val listaPerFiltrar = ProveedorPreguntas.obtenerPreguntas()
@@ -26,65 +67,55 @@ class GameViewModel : ViewModel() {
                 listaFiltrada.add(preguntaFiltrar)
             }
         }
+        listaFiltrada.shuffle()
         return listaFiltrada
     }
-    
-    var indicePreguntaActual by mutableIntStateOf(0)
-        private set
-
-    var preguntaActual by mutableStateOf<Pregunta?>(null)
-        private set
-
-    var respuestasMezcladas by mutableStateOf<List<String>>(emptyList())
-        private set
-
-    var puntuacion by mutableIntStateOf(0)
-        private set
-
-    var tiempoRestante by mutableFloatStateOf(100f)
-        private set
-
-    var juegoTerminado by mutableStateOf(false)
-        private set
-
-    var dificultadSeleccionada by mutableStateOf("Facil")
-        private set
-
-    public fun getDificultad(): String {
-        return dificultadSeleccionada
-    }
-
-    private var timer: CountDownTimer? = null
-    private val TIEMPO_POR_PREGUNTA = 10000L // 10 segons
 
     fun setDificultad(dificultad: String) {
         dificultadSeleccionada = dificultad // Sense .value!
     }
-    fun iniciarJuego() {
-        iniciarTimer()
 
+
+
+    public fun setIndicePreguntaActual(){
+        indicePreguntaActual++
+        if (indicePreguntaActual >= 10){
+            juegoTerminado = true
+        }
     }
 
-    private fun cargarSiguientePregunta() {
+
+
+    public fun setPreguntaActual (){
+        preguntaActual = preguntasPartida[indicePreguntaActual]
+    }
+    public fun getDificultad(): String {
+        return dificultadSeleccionada
     }
 
-    fun responderPregunta(respuestaUsuario: String) {
+    public fun cargarSiguientePregunta() {
+        setIndicePreguntaActual()
+        setPreguntaActual()
     }
 
-    private fun avanzarRonda() {
+    public fun resetAll() {
+        puntuacion = 0
+        juegoTerminado = false
+        indicePreguntaActual = 0
     }
 
-    private fun iniciarTimer() {
-        //facil 10s
-        //medio 8s
-        //dificil 6s
+
+    public fun responderPregunta(respuestaUsuario: String?) {
+        if (respuestaUsuario == preguntaActual?.respuestaCorrecta){
+            puntuacion += 10
+        }
     }
+
+
 
     override fun onCleared() {
+        super.onCleared()
+        timer?.cancel()
     }
-    public fun CircularProgressIndicator(
-        progress: () -> Float,
-    ) {
 
-    }
 }
