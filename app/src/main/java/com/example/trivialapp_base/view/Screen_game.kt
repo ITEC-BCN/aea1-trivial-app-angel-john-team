@@ -31,9 +31,6 @@ import com.example.trivialapp_base.model.Pregunta
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
     viewModel.setPreguntaActual()
-    Box() {
-         CircularProgressIndicator()
-    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -45,15 +42,18 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text( text = "Round " + viewModel.indicePreguntaActual + "/10")
+
+            CircularProgressIndicator(
+                progress = {viewModel.tiempoRestante / 100f}
+            )
+
             Text( text = viewModel.preguntaActual?.pregunta ?: "Pregunta")
 
             Row() {
                 Button(onClick = {
                     viewModel.responderPregunta(viewModel.preguntaActual?.respuesta1)
                     viewModel.cargarSiguientePregunta()
-                    if (viewModel.juegoTerminado){
-                        navController.navigate("ResultScreen")
-                    }
                 }) {
                     Text(text = viewModel.preguntaActual?.respuesta1 ?: "Respuesta 1")
                 }
@@ -61,9 +61,6 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 Button(onClick = {
                     viewModel.responderPregunta(viewModel.preguntaActual?.respuesta2)
                     viewModel.cargarSiguientePregunta()
-                    if (viewModel.juegoTerminado){
-                        navController.navigate("ResultScreen")
-                    }
                 }) {
                     Text(text = viewModel.preguntaActual?.respuesta2 ?: "Respuesta 2")
                 }
@@ -72,9 +69,6 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 Button(onClick = {
                     viewModel.responderPregunta(viewModel.preguntaActual?.respuesta3)
                     viewModel.cargarSiguientePregunta()
-                    if (viewModel.juegoTerminado){
-                        navController.navigate("ResultScreen")
-                    }
                 }) {
                     Text(text = viewModel.preguntaActual?.respuesta3 ?: "Respuesta 3")
                 }
@@ -82,16 +76,14 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 Button(onClick = {
                     viewModel.responderPregunta(viewModel.preguntaActual?.respuesta4)
                     viewModel.cargarSiguientePregunta()
-                    if (viewModel.juegoTerminado){
-                        navController.navigate("ResultScreen")
-                    }
                 }) {
                     Text(text = viewModel.preguntaActual?.respuesta4 ?: "Respuesta 4")
                 }
             }
+            if (viewModel.juegoTerminado){
+                navController.navigate("ResultScreen")
+                viewModel.stopTimer()
+            }
         }
-    }
-    Box() {
-
     }
 }

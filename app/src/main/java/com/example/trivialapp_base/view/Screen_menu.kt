@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import com.example.trivialapp_base.ui.theme.TrivialAPP_BaseTheme
 import com.example.trivialapp_base.viewmodel.GameViewModel
+import kotlin.math.log
 
 
 @Composable
@@ -81,8 +82,8 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
             Button(
                 onClick = {
                     viewModel.setDificultad(selectedDifficulty)
+                    viewModel.setPreguntasPartida()
                     navController.navigate("GameScreen")
-
                     },
                 modifier = Modifier
                     .width(200.dp)
